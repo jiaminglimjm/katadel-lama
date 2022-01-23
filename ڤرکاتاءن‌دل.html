@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#papanKekunci {
+    width: 90%;
+    max-width: 900px;
+    font-size: 3em;
+}
+td{
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently */
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+}
+td.input:hover{
+    background-color:rgb(230,230,230);
+}
+
+#tebakan {
+    width: 90%;
+    max-width: 700px;
+}
+td.tebakan {
+    padding: 0px;
+    width: 50px;
+    height: 50px;
+    font-size:4em;
+}
+</style>
+</head>
+
+<body dir=rtl>
+<center>
+<h1>ڤرکاتا<sup>ء</sup>ن‌دل</h1>
+<h1 style="display:none">perkataandel wordle dalam aksara jawi | wordle in jawi</h1>
+
+<br/>
+
+<table id="tebakan">
+
+</table>
+
+<br/><br/>
+
+<table id="papanKekunci">
+    <tr>
+        <td class="input" onclick="tekan_butang('ا')">ا</td>
+        <td class="input" onclick="tekan_butang('ب')">ب</td>
+        <td class="input" onclick="tekan_butang('ت')">ت</td>
+        <td class="input" onclick="tekan_butang('ة')">ة</td>
+        <td class="input" onclick="tekan_butang('ث')">ث</td>
+        <td class="input" onclick="tekan_butang('ج')">ج</td>
+        <td class="input" onclick="tekan_butang('چ')">چ</td>
+        <td class="input" onclick="tekan_butang('ح')">ح</td>
+        <td class="input" onclick="tekan_butang('خ')">خ</td>
+        <td class="input" onclick="tekan_butang('د')">د</td>
+        <td class="input" onclick="tekan_butang('ذ')">ذ</td>
+        <td class="input" onclick="tekan_butang('ر')">ر</td>
+        <td class="input" onclick="tekan_butang('ز')">ز</td>
+    </tr>
+    <tr>
+        <td class="input" onclick="tekan_butang('س')">س</td>
+        <td class="input" onclick="tekan_butang('ش')">ش</td>
+        <td class="input" onclick="tekan_butang('ص')">ص</td>
+        <td class="input" onclick="tekan_butang('ض')">ض</td>
+        <td class="input" onclick="tekan_butang('ط')">ط</td>
+        <td class="input" onclick="tekan_butang('ظ')">ظ</td>
+        <td class="input" onclick="tekan_butang('ع')">ع</td>
+        <td class="input" onclick="tekan_butang('غ')">غ</td>
+        <td class="input" onclick="tekan_butang('ڠ')">ڠ</td>
+        <td class="input" onclick="tekan_butang('ف')">ف</td>
+        <td class="input" onclick="tekan_butang('ڤ')">ڤ</td>
+        <td class="input" onclick="tekan_butang('ق')">ق</td>
+        <td class="input" onclick="tekan_butang('ک')">ک</td>
+    </tr>
+    <tr>
+        <td class="input" onclick="tekan_butang('ݢ')">ݢ</td>
+        <td class="input" onclick="tekan_butang('ل')">ل</td>
+        <td class="input" onclick="tekan_butang('م')">م</td>
+        <td class="input" onclick="tekan_butang('ن')">ن</td>
+        <td class="input" onclick="tekan_butang('و')">و</td>
+        <td class="input" onclick="tekan_butang('ۏ')">ۏ</td>
+        <td class="input" onclick="tekan_butang('ه')">ه</td>
+        <td class="input" onclick="tekan_butang('ء')">ء</td>
+        <td class="input" onclick="tekan_butang('ي')">ي</td>
+        <td class="input" onclick="tekan_butang('ى')">ى</td>
+        <td class="input" onclick="tekan_butang('ڽ')">ڽ</td>
+        <td class="input" onclick="hapus_satu_aksara()"><span style="font-size:0.5em"><=</span></td>
+        <td class="input" onclick="meneka();isi_ulang_tabel()"><span style="font-size:0.5em">ماسوق</span></td>
+    </tr>
+</table>
+<p id="uji" style="font-size:2em"></p>
+</center>
+<script>
+var nombor_perkataan = 0;
+var tebakan_perkataan = ["","","","","",""];
+var RODA = "رزوۏدذاءة";
+
+function hapus_satu_aksara() {
+    tebakan_perkataan[nombor_perkataan] = tebakan_perkataan[nombor_perkataan].substr(0,tebakan_perkataan[nombor_perkataan].length-1);
+    document.getElementById('uji').innerText = tebakan_perkataan;
+    isi_ulang_tabel();
+}
+
+function meneka() {
+    if (tebakan_perkataan[nombor_perkataan].length == 5) {
+        nombor_perkataan+=1;
+    } else {
+        alert("Tak cukup huruf!")
+    }
+}
+
+function tekan_butang(kekunci) {
+    if (tebakan_perkataan[nombor_perkataan].length < 5) {
+        tebakan_perkataan[nombor_perkataan] += kekunci;
+    } else {
+        alert('Terlalu banyak huruf!');
+    }
+    document.getElementById('uji').innerText = tebakan_perkataan;
+    isi_ulang_tabel();
+}
+function isi_ulang_tabel() {
+    var x = document.getElementById("tebakan");
+    output = "";
+    for (i=0; i<6; i++) {
+        output += "<tr>";
+        for (j=0; j<5; j++) {
+            if (j == 0)
+
+
+
+            if (tebakan_perkataan[i][j] != undefined) {
+                output += `<td class="tebakan">${tebakan_perkataan[i][j]}</td>`
+            } else {
+                output += `<td class="tebakan"> </td>`
+            }
+        }
+        output += "</tr>";
+    }
+    x.innerHTML = output;
+}
+
+isi_ulang_tabel()
+</script>
+</body>
