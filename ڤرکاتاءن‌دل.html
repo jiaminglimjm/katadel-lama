@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>ڤرکاتاءن‌دل | perkataandel</title>
 <style>
+
 #papanKekunci {
     width: 90%;
     max-width: 900px;
@@ -16,21 +18,21 @@ td{
             user-select: none; /* Non-prefixed version, currently */
     border: 1px solid black;
     text-align: center;
-    vertical-align: middle;
+    vertical-align: top;
 }
 td.input:hover{
     background-color:rgb(230,230,230);
 }
 
 #tebakan {
-    width: 90%;
     max-width: 700px;
 }
 td.tebakan {
     padding: 0px;
-    width: 50px;
-    height: 50px;
+    width: 1em;
+    height: 1em;
     font-size:4em;
+    font-family: monospace;
 }
 </style>
 </head>
@@ -131,14 +133,31 @@ function isi_ulang_tabel() {
     for (i=0; i<6; i++) {
         output += "<tr>";
         for (j=0; j<5; j++) {
-            if (j == 0)
+            if (j == 0 && tebakan_perkataan[i].length == 1) {
+                output += `<td id="${i}_${j}" class="tebakan">${tebakan_perkataan[i][j]}</td>`;
+            }
+            else if (j == 0 && tebakan_perkataan[i].length > 1) {
+                output += `<td id="${i}_${j}" class="tebakan">${tebakan_perkataan[i][j]}\u200d</td>`;
+            }
+            else if (j == tebakan_perkataan[i].length-1) {
+                if (RODA.includes(tebakan_perkataan[i][j-1])) {
+                    output += `<td id="${i}_${j}" class="tebakan">\u200e${tebakan_perkataan[i][j]}‍\u200e</td>`;
+                } else {
+                    output += `<td id="${i}_${j}" class="tebakan">\u200d${tebakan_perkataan[i][j]}‍\u200e</td>`;
+                }
+            }
+            else if (tebakan_perkataan[i].length > j) {
+                if (RODA.includes(tebakan_perkataan[i][j-1])) {
+                    output += `<td id="${i}_${j}" class="tebakan">\u200e${tebakan_perkataan[i][j]}‍\u200d</td>`;
+                } else {
+                    output += `<td id="${i}_${j}" class="tebakan">\u200d${tebakan_perkataan[i][j]}‍\u200d</td>`;
+                }
+            }
 
-
-
-            if (tebakan_perkataan[i][j] != undefined) {
-                output += `<td class="tebakan">${tebakan_perkataan[i][j]}</td>`
+            else if (tebakan_perkataan[i][j] != undefined) {
+                output += `<td id="${i}_${j}" class="tebakan">${tebakan_perkataan[i][j]}</td>`
             } else {
-                output += `<td class="tebakan"> </td>`
+                output += `<td id="${i}_${j}" class="tebakan"> </td>`
             }
         }
         output += "</tr>";
