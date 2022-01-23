@@ -28,7 +28,7 @@ td{
 td.input:hover{
     background-color:rgb(180,180,180);
 }
-td.input:active{
+button:active{
     background-color:rgb(180,180,180);
 }
 
@@ -42,8 +42,14 @@ td.tebakan {
     font-size:4em;
     font-family: monospace;
 }
+td.input > button {
+    width: 100%;
+    height: 100%;
+    font-size:1em;
+    border: none;
+}
 
-button {
+#togol {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -79,7 +85,7 @@ button {
         right: 30px;
     }
 
-    button {
+    #togol {
         font-size: 2.5em;
     }
 }
@@ -91,7 +97,7 @@ button {
 <h1>ڤرکاتا<sup>ء</sup>ن‌دل</h1>
 <h1 style="display:none">perkataandel wordle dalam aksara jawi | wordle in jawi</h1>
 
-<button onclick="togol_kecerahan()">🌗 سياڠ/مالم</button>
+<button id="togol" onclick="togol_kecerahan()">🌗 سياڠ/مالم</button>
 
 <br/>
 
@@ -103,47 +109,47 @@ button {
 
 <table id="papanKekunci">
     <tr>
-        <td class="input" onclick="tekan_butang('ا')">ا</td>
-        <td class="input" onclick="tekan_butang('ب')">ب</td>
-        <td class="input" onclick="tekan_butang('ت')">ت</td>
-        <td class="input" onclick="tekan_butang('ة')">ة</td>
-        <td class="input" onclick="tekan_butang('ث')">ث</td>
-        <td class="input" onclick="tekan_butang('ج')">ج</td>
-        <td class="input" onclick="tekan_butang('چ')">چ</td>
-        <td class="input" onclick="tekan_butang('ح')">ح</td>
-        <td class="input" onclick="tekan_butang('خ')">خ</td>
-        <td class="input" onclick="tekan_butang('د')">د</td>
-        <td class="input" onclick="tekan_butang('ذ')">ذ</td>
-        <td class="input" onclick="tekan_butang('ر')">ر</td>
-        <td class="input" onclick="tekan_butang('ز')">ز</td>
+        <td class="input"><button onclick="tekan_butang('ا')">ا</button></td>
+        <td class="input"><button onclick="tekan_butang('ب')">ب</button></td>
+        <td class="input"><button onclick="tekan_butang('ت')">ت</button></td>
+        <td class="input"><button onclick="tekan_butang('ة')">ة</button></td>
+        <td class="input"><button onclick="tekan_butang('ث')">ث</button></td>
+        <td class="input"><button onclick="tekan_butang('ج')">ج</button></td>
+        <td class="input"><button onclick="tekan_butang('چ')">چ</button></td>
+        <td class="input"><button onclick="tekan_butang('ح')">ح</button></td>
+        <td class="input"><button onclick="tekan_butang('خ')">خ</button></td>
+        <td class="input"><button onclick="tekan_butang('د')">د</button></td>
+        <td class="input"><button onclick="tekan_butang('ذ')">ذ</button></td>
+        <td class="input"><button onclick="tekan_butang('ر')">ر</button></td>
+        <td class="input"><button onclick="tekan_butang('ز')">ز</button></td>
     </tr>
     <tr>
-        <td class="input" onclick="tekan_butang('س')">س</td>
-        <td class="input" onclick="tekan_butang('ش')">ش</td>
-        <td class="input" onclick="tekan_butang('ص')">ص</td>
-        <td class="input" onclick="tekan_butang('ض')">ض</td>
-        <td class="input" onclick="tekan_butang('ط')">ط</td>
-        <td class="input" onclick="tekan_butang('ظ')">ظ</td>
-        <td class="input" onclick="tekan_butang('ع')">ع</td>
-        <td class="input" onclick="tekan_butang('غ')">غ</td>
-        <td class="input" onclick="tekan_butang('ڠ')">ڠ</td>
-        <td class="input" onclick="tekan_butang('ف')">ف</td>
-        <td class="input" onclick="tekan_butang('ڤ')">ڤ</td>
-        <td class="input" onclick="tekan_butang('ق')">ق</td>
-        <td class="input" onclick="tekan_butang('ک')">ک</td>
+        <td class="input"><button onclick="tekan_butang('س')">س</button></td>
+        <td class="input"><button onclick="tekan_butang('ش')">ش</button></td>
+        <td class="input"><button onclick="tekan_butang('ص')">ص</button></td>
+        <td class="input"><button onclick="tekan_butang('ض')">ض</button></td>
+        <td class="input"><button onclick="tekan_butang('ط')">ط</button></td>
+        <td class="input"><button onclick="tekan_butang('ظ')">ظ</button></td>
+        <td class="input"><button onclick="tekan_butang('ع')">ع</button></td>
+        <td class="input"><button onclick="tekan_butang('غ')">غ</button></td>
+        <td class="input"><button onclick="tekan_butang('ڠ')">ڠ</button></td>
+        <td class="input"><button onclick="tekan_butang('ف')">ف</button></td>
+        <td class="input"><button onclick="tekan_butang('ڤ')">ڤ</button></td>
+        <td class="input"><button onclick="tekan_butang('ق')">ق</button></td>
+        <td class="input"><button onclick="tekan_butang('ک')">ک</button></td>
     </tr>
     <tr>
-        <td class="input" onclick="tekan_butang('ݢ')">ݢ</td>
-        <td class="input" onclick="tekan_butang('ل')">ل</td>
-        <td class="input" onclick="tekan_butang('م')">م</td>
-        <td class="input" onclick="tekan_butang('ن')">ن</td>
-        <td class="input" onclick="tekan_butang('و')">و</td>
-        <td class="input" onclick="tekan_butang('ۏ')">ۏ</td>
-        <td class="input" onclick="tekan_butang('ه')">ه</td>
-        <td class="input" onclick="tekan_butang('ء')">ء</td>
-        <td class="input" onclick="tekan_butang('ي')">ي</td>
-        <td class="input" onclick="tekan_butang('ى')">ى</td>
-        <td class="input" onclick="tekan_butang('ڽ')">ڽ</td>
+        <td class="input"><button onclick="tekan_butang('ݢ')">ݢ</button></td>
+        <td class="input"><button onclick="tekan_butang('ل')">ل</button></td>
+        <td class="input"><button onclick="tekan_butang('م')">م</button></td>
+        <td class="input"><button onclick="tekan_butang('ن')">ن</button></td>
+        <td class="input"><button onclick="tekan_butang('و')">و</button></td>
+        <td class="input"><button onclick="tekan_butang('ۏ')">ۏ</button></td>
+        <td class="input"><button onclick="tekan_butang('ه')">ه</button></td>
+        <td class="input"><button onclick="tekan_butang('ء')">ء</button></td>
+        <td class="input"><button onclick="tekan_butang('ي')">ي</button></td>
+        <td class="input"><button onclick="tekan_butang('ى')">ى</button></td>
+        <td class="input"><button onclick="tekan_butang('ڽ')">ڽ</button></td>
         <td class="input" onclick="hapus_satu_aksara()"><span style="font-size:0.5em"><=</span></td>
         <td class="input" onclick="meneka();isi_ulang_tabel()"><span style="font-size:0.5em">ماسوق</span></td>
     </tr>
