@@ -3,7 +3,12 @@
 <head>
 <title>ڤرکاتاءن‌دل | perkataandel</title>
 <style>
-
+/**/
+body {
+    background-color: rgb(230, 230, 230);
+    color:rgb(50, 50, 50);
+}
+/**/
 #papanKekunci {
     width: 90%;
     max-width: 900px;
@@ -16,12 +21,15 @@ td{
        -moz-user-select: none; /* Old versions of Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently */
-    border: 1px solid black;
+    border: 1px solid;
     text-align: center;
-    vertical-align: top;
+    vertical-align: middle;
 }
 td.input:hover{
-    background-color:rgb(230,230,230);
+    background-color:rgb(180,180,180);
+}
+td.input:active{
+    background-color:rgb(180,180,180);
 }
 
 #tebakan {
@@ -34,6 +42,47 @@ td.tebakan {
     font-size:4em;
     font-family: monospace;
 }
+
+button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+}
+
+@media only screen and (max-device-width: 768px) {
+    h1 {
+        font-size: 5em;
+    }
+
+    #tebakan {
+        width: 80%;
+        margin-top: 5em;
+    }
+    td{
+        border: 2px solid;
+    }
+    td.tebakan {
+        padding: 0px;
+        overflow: none;
+        width: 3em;
+        height: 3em;
+        border: 3px solid;
+        font-size:6em;
+        font-family: monospace;
+    }
+    #papanKekunci {
+        width: 100%;
+        font-size: 4em;
+        position: absolute;
+        bottom: 100px;
+        right: 30px;
+    }
+
+    button {
+        font-size: 2.5em;
+    }
+}
 </style>
 </head>
 
@@ -41,6 +90,8 @@ td.tebakan {
 <center>
 <h1>ڤرکاتا<sup>ء</sup>ن‌دل</h1>
 <h1 style="display:none">perkataandel wordle dalam aksara jawi | wordle in jawi</h1>
+
+<button onclick="togol_kecerahan()">🌗 سياڠ/مالم</button>
 
 <br/>
 
@@ -97,12 +148,12 @@ td.tebakan {
         <td class="input" onclick="meneka();isi_ulang_tabel()"><span style="font-size:0.5em">ماسوق</span></td>
     </tr>
 </table>
-<p id="uji" style="font-size:2em"></p>
+<p id="uji" style="font-size:2em;display:none;"></p>
 </center>
 <script>
 var nombor_perkataan = 0;
 var tebakan_perkataan = ["","","","","",""];
-var RODA = "رزوۏدذاءة";
+var RODA = "ﻻرزوۏدذاءة";
 
 function hapus_satu_aksara() {
     tebakan_perkataan[nombor_perkataan] = tebakan_perkataan[nombor_perkataan].substr(0,tebakan_perkataan[nombor_perkataan].length-1);
@@ -120,7 +171,12 @@ function meneka() {
 
 function tekan_butang(kekunci) {
     if (tebakan_perkataan[nombor_perkataan].length < 5) {
+
         tebakan_perkataan[nombor_perkataan] += kekunci;
+
+        if (tebakan_perkataan[nombor_perkataan].includes('لا')) {
+             tebakan_perkataan[nombor_perkataan] =  tebakan_perkataan[nombor_perkataan].replace('لا', 'ﻻ');
+        }
     } else {
         alert('Terlalu banyak huruf!');
     }
@@ -133,6 +189,8 @@ function isi_ulang_tabel() {
     for (i=0; i<6; i++) {
         output += "<tr>";
         for (j=0; j<5; j++) {
+
+            /* Cek harus tambah ZWNJ atau ZWJ */
             if (j == 0 && tebakan_perkataan[i].length == 1) {
                 output += `<td id="${i}_${j}" class="tebakan">${tebakan_perkataan[i][j]}</td>`;
             }
@@ -153,7 +211,6 @@ function isi_ulang_tabel() {
                     output += `<td id="${i}_${j}" class="tebakan">\u200d${tebakan_perkataan[i][j]}‍\u200d</td>`;
                 }
             }
-
             else if (tebakan_perkataan[i][j] != undefined) {
                 output += `<td id="${i}_${j}" class="tebakan">${tebakan_perkataan[i][j]}</td>`
             } else {
@@ -163,6 +220,17 @@ function isi_ulang_tabel() {
         output += "</tr>";
     }
     x.innerHTML = output;
+}
+
+function togol_kecerahan() {
+    var body = document.getElementsByTagName('body')[0];
+    if (body.style.color == "" || body.style.color == "rgb(50, 50, 50)") {
+        body.style.color = "rgb(230, 230, 230)";
+        body.style.backgroundColor = "rgb(50, 50, 50)";
+    } else {
+        body.style.color = "rgb(50, 50, 50)";
+        body.style.backgroundColor = "rgb(230, 230, 230)";
+    }
 }
 
 isi_ulang_tabel()
