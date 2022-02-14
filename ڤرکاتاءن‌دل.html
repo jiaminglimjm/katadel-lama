@@ -40,7 +40,7 @@ td.tebakan {
     width: 1em;
     height: 1em;
     font-size:4em;
-    font-family: "DejaVu Mono", monospace;
+    font-family: DejawiVu Sans Mono;
 }
 td.input > button {
     width: 100%;
@@ -57,7 +57,7 @@ td.input > button {
 }
 
 button {
-    font-family: "Noto Naskh Arabic", sans-serif;
+    font-family: Noto Naskh Arabic;
 }
 
 @media only screen and (max-device-width: 768px) {
@@ -79,7 +79,7 @@ button {
         height: 3em;
         border: 3px solid;
         font-size:6em;
-        font-family: monospace;
+        font-family: DejawiVu Sans Mono;
     }
     #papanKekunci {
         width: 100%;
@@ -150,7 +150,7 @@ button {
         <td class="input"><button onclick="tekan_butang('و')">و</button></td>
         <td class="input"><button onclick="tekan_butang('ۏ')">ۏ</button></td>
         <td class="input"><button onclick="tekan_butang('ه')">ه</button></td>
-        <td class="input"><button onclick="tekan_butang('ء')">ء</button></td>
+        <td class="input"><button onclick="tekan_butang('ٴ')">ء</button></td>
         <td class="input"><button onclick="tekan_butang('ي')">ي</button></td>
         <td class="input"><button onclick="tekan_butang('ى')">ى</button></td>
         <td class="input"><button onclick="tekan_butang('ڽ')">ڽ</button></td>
@@ -163,7 +163,7 @@ button {
 <script>
 var nombor_perkataan = 0;
 var tebakan_perkataan = ["","","","","",""];
-var RODA = "ﻻرزوۏدذاءة";
+var RODA = "٢ﻻرزوۏدذاٴءة";
 
 function hapus_satu_aksara() {
     tebakan_perkataan[nombor_perkataan] = tebakan_perkataan[nombor_perkataan].substr(0,tebakan_perkataan[nombor_perkataan].length-1);
@@ -215,10 +215,18 @@ function isi_ulang_tabel() {
                 }
             }
             else if (tebakan_perkataan[i].length > j) {
-                if (RODA.includes(tebakan_perkataan[i][j-1])) {
-                    output += `<td id="${i}_${j}" class="tebakan">\u200e${tebakan_perkataan[i][j]}‍\u200d</td>`;
+                if ('-ٴء٢'.includes(tebakan_perkataan[i][j+1])) {
+                    if (RODA.includes(tebakan_perkataan[i][j-1])) {
+                        output += `<td id="${i}_${j}" class="tebakan">}‍\u200e${tebakan_perkataan[i][j]}‍\u200e</td>`;
+                    } else {
+                        output += `<td id="${i}_${j}" class="tebakan">\u200d${tebakan_perkataan[i][j]}‍\u200e</td>`;
+                    }
                 } else {
-                    output += `<td id="${i}_${j}" class="tebakan">\u200d${tebakan_perkataan[i][j]}‍\u200d</td>`;
+                    if (RODA.includes(tebakan_perkataan[i][j-1])) {
+                        output += `<td id="${i}_${j}" class="tebakan">${tebakan_perkataan[i][j]}‍\u200d</td>`;
+                    } else {
+                        output += `<td id="${i}_${j}" class="tebakan">\u200d${tebakan_perkataan[i][j]}‍\u200d</td>`;
+                    }
                 }
             }
             else if (tebakan_perkataan[i][j] != undefined) {

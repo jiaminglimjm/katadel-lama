@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>کاتادل - Wordle versi Jawi - Katadel</title>
+    <style>
+        html {
+            height: 100%;
+            font-size: 24px;
+            font-family: "DejawiVu Sans Mono", "Noto Naskh Arabic", sans-serif;
+            background: hsl(215, 50%, 95%);
+        }
+        /**/* {
+            font-family: "DejawiVu Sans Mono";
+        }
+        /**/
+        body {
+            height: 100%;
+            margin: 0;
+        }
+        main[hidden] {
+            display: none;
+        }
+        ol, ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        button, select, input {
+            font-size: inherit;
+        }
+        button {
+            --button-hue: 215;
+            --button-lightness: 90%;
+            padding: 0.25em 0.5em;
+            line-height: 1.5;
+            border-radius: 0.125em;
+            border: 1px solid #888;
+            text-align: center;
+            background: hsl(var(--button-hue), 20%, var(--button-lightness));
+            background-image: linear-gradient(to bottom, transparent, hsl(
+                var(--button-hue), 20%, calc(var(--button-lightness) * 0.9)));
+            box-shadow: inset 0 0 3px #fff4;
+            cursor: pointer;
+        }
+        button:hover {
+            background: hsl(var(--button-hue), 20%, calc(var(--button-lightness) * 1.05));
+        }
+        button:active {
+            background: hsl(var(--button-hue), 20%, calc(var(--button-lightness) * 0.9));
+        }
+        input[type=checkbox] {
+            width: 1em;
+            height: 1em;
+        }
+        #button-show-about {
+            color: rgb(200, 30, 30);
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 1em;
+            box-sizing: border-box;
+            max-width: 40em;
+            height: 100%;
+            margin: 0 auto;
+            padding: 1em;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+        header h1 {
+            font-size: 1.5em;
+            margin: 0;
+            text-align: center;
+        }
+        header .-before,
+        header .-after {
+            flex: 1;
+        }
+        header .-after {
+            text-align: left;
+        }
+        header button {
+            /**border: none; /**/
+            /**background: none;/**/
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.25em;
+        }
+
+        #board {
+            display: grid;
+            grid:
+                "left   target  right"
+                "given  given   given"
+                / 1fr min-content 1fr
+            ;
+            align-items: center;
+            justify-content: center;
+            gap: 1em;
+            padding: 1em 0;
+            border: 1px solid #ccd;
+            border-width: 1px 0;
+        }
+        #board > .-left {
+            grid-area: left;
+        }
+        #board .target {
+            grid-area: target;
+        }
+        #board > .-right {
+            grid-area: right;
+        }
+        #board > .-left,
+        #board > .-right {
+            text-align: center;
+            color: #666;
+        }
+        #board #given {
+            grid-area: given;
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+        }
+
+        #inputs-wrapper {
+            flex: 1;
+            overflow: auto;
+            padding: 0.25em;
+            padding-right: 1em;  /* leave space for stars */
+        }
+
+
+
+
+        #error {
+            color: hsl(10, 75%, 25%);
+            text-align: center;
+        }
+
+        #keyboard {
+            font-size: 1em;
+            display: grid;
+            grid: auto-flow 1.5em / repeat(10, 1fr);
+            gap: 0.1em;
+        }
+        #keyboard button {
+            --button-lightness: 75%;
+            line-height: 1;
+        }
+        #keyboard button[data-type=erase] {
+            --button-hue: 275;
+            background-color: rgb(255,160,200);
+        }
+        #keyboard button[data-type=masuk] {
+            --button-hue: 155;
+            grid-column: 9 / 11;
+        }
+
+        #win {
+            display: none;  /* flex */
+            align-items: center;
+        }
+        #win p {
+            flex: 1;
+            margin: 0;
+        }
+        #main-game.won #error {
+            display: none;
+        }
+        #main-game.won #win {
+            display: flex;
+        }
+
+        #puzzle-desc {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            color: #666;
+        }
+        #puzzle-desc p {
+            flex: 1;
+            margin: 0;
+        }
+
+        /****************************************************************************/
+        /* settings */
+
+        form#settings {
+        }
+        form#settings h2 {
+            font-size: 1.25em;
+            font-weight: normal;
+            border-bottom: 1px solid #ccd;
+            color: #444;
+        }
+        form#settings p {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0.5em;
+        }
+        form#settings p:hover {
+            background: hsl(215, 50%, 90%);
+        }
+        form#settings p > label {
+            flex: 1;
+        }
+
+        /****************************************************************************/
+        /* about */
+
+        #main-about {
+            overflow: auto;
+            padding-bottom: 2em;
+        }
+        #main-about p {
+            font-size: 0.75rem;
+            margin: 0;  /* flexbox does the gap */
+            line-height: 1.5;
+        }
+        #main-about .num,
+        #main-about .op {
+            font-size: 1em;
+        }
+
+        .about-examples {
+            display: grid;
+            grid: auto-flow / auto auto;
+            align-items: center;
+            gap: 1em;
+            margin: 0 1em;
+        }
+
+        /****************************************************************************/
+
+        .clipboard-confirm {
+            position: absolute;
+            font-size: 2em;
+            margin-left: -0.5em;
+            margin-top: -0.75em;
+            pointer-events: none;
+
+            transform-origin: 50%;
+            animation: clipboard 0.5s ease-out forwards;
+        }
+        @keyframes clipboard {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            25% {
+                transform: translateY(-50%) scale(1);
+            }
+            50% {
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                transform: translateY(0) scale(0) rotate(1turn);
+            }
+        }
+
+        @media (max-width: 720px) {
+            html {
+                font-size: 16px;
+            }
+            .num, .op {
+                font-size: 1.5rem;
+            }
+
+            #main-about p {
+                font-size: 1em;
+            }
+            .about-examples {
+                grid-template-columns: auto;
+            }
+            #main-about .about-examples > p {
+                margin-bottom: 1em;
+            }
+        }
+
+
+
+    </style>
+</head>
+<body dir="rtl">
+    <noscript>Anda perlu JavaScript untuk menjalankan aplikasi ini.</noscript>
+
+
+
+    <main id="main-game">
+        <header>
+            <div class="-before">
+                <button id="button-mode" title="Seharian">سهارين</button>
+                <button id="button-mode" title="Latihan">لاتيهن</button>
+            </div>
+            <h1>کاتادل</h1>
+            <h2 hidden>Teka-teki perkataan Bahasa Melayu Malaysia jawi! | Katadel - Wordle versi Jawi | وردل ۏرسي جاوي - تکا-تکي ڤرکاتاٴن جاوي | Malay Jawi version of wordle.</h1>
+            <div class="-after">
+                <button id="button-show-about" title="Statistik">📊</button>
+                <button id="button-show-about" title="Perihal">؟</button><!--❓-->
+                <button id="button-settings" title="Tetapan">⚙️</button>
+            </div>
+        </header>
+        <!--
+        <div id="board">
+            <div class="-left">
+                <button id="button-reset">reset</button>
+            </div>
+            <div class="num target">???</div>
+            <div class="-right">normal rules</div>
+            <ul id="given"></ul>
+        </div>
+        -->
+        <div id="inputs-wrapper">
+            <ol id="inputs" class="expn-list"></ol>
+        </div>
+        <div id="error"></div>
+        <div id="win">
+            <p id="win-message">Tahniah!</p>
+            <button id="button-copy-results">Salin keputusan</button>
+        </div>
+        <div id="keyboard">
+            <button data-op="ا" data-type="operator">ا</button>
+            <button data-op="ب" data-type="operator">ب</button>
+            <button data-op="ت" data-type="operator">ت</button>
+            <button data-op="ة" data-type="operator">ة</button>
+            <button data-op="ث" data-type="operator">ث</button>
+            <button data-op="ج" data-type="operator">ج</button>
+            <button data-op="چ" data-type="operator">چ</button>
+            <button data-op="ح" data-type="operator">ح</button>
+            <button data-op="خ" data-type="operator">خ</button>
+            <button data-type="erase">⌦</button> <!-- U+2326 ERASE TO THE RIGHT -->
+            <button data-op="د" data-type="operator">د</button>
+            <button data-op="ذ" data-type="operator">ذ</button>
+            <button data-op="ر" data-type="operator">ر</button>
+            <button data-op="ز" data-type="operator">ز</button>
+            <button data-op="س" data-type="operator">س</button>
+            <button data-op="ش" data-type="operator">ش</button>
+            <button data-op="ص" data-type="operator">ص</button>
+            <button data-op="ض" data-type="operator">ض</button>
+            <button data-op="ط" data-type="operator">ط</button>
+            <button data-op="ظ" data-type="operator">ظ</button>
+            <button data-op="ع" data-type="operator">ع</button>
+            <button data-op="غ" data-type="operator">غ</button>
+            <button data-op="ڠ" data-type="operator">ڠ</button>
+            <button data-op="ف" data-type="operator">ف</button>
+            <button data-op="ڤ" data-type="operator">ڤ</button>
+            <button data-op="ق" data-type="operator">ق</button>
+            <button data-op="ک" data-type="operator">ک</button>
+            <button data-op="ݢ" data-type="operator">ݢ</button>
+            <button data-op="ل" data-type="operator">ل</button>
+            <button data-op="م" data-type="operator">م</button>
+            <button data-op="ن" data-type="operator">ن</button>
+            <button data-op="و" data-type="operator">و</button>
+            <button data-op="ۏ" data-type="operator">ۏ</button>
+            <button data-op="ه" data-type="operator">ه</button>
+            <button data-op="ء" data-type="operator">ء</button>
+            <button data-op="ي" data-type="operator">ي</button>
+            <button data-op="ى" data-type="operator">ى</button>
+            <button data-op="ڽ" data-type="operator">ڽ</button>
+            <button data-type="masuk">ماسوق</button>
+
+        </div>
+        <div id="puzzle-desc">
+            <p>Latihan seharian pada __</p>
+            <button id="button-reroll">Latihan baru</button>
+            <button id="button-copy-link">Salin pautan</button>
+        </div>
+    </main>
+
+
+
+
+
+    <main hidden id="main-about">
+        <header>
+            <div class="-before"></div>
+            <h1>ڤريهل</h1>
+            <div class="-after">
+                <button id="button-close-about">❌</button>
+            </div>
+        </header>
+        <p><strong>digitle</strong> is a number puzzle game, best known from the UK game show <a href="https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_round">Countdown</a>.</p>
+        <p>Try to reach the target number by combining the six given numbers and the four basic arithmetic operations.  Click on available numbers to insert them into an expression, or type them on your keyboard.</p>
+        <div class="about-examples">
+            <ol class="expn-list">
+                <div class="-expn">
+                    <span class="num">1</span>
+                    <span class="op">+</span>
+                    <span class="num">2</span>
+                    <span class="op">×</span>
+                    <span class="num">3</span>
+                </div>
+                <div class="-eq">
+                    <span class="op">=</span>
+                    <span class="num intermed">7</span>
+                </div>
+            </ol>
+            <p>Order of operations matters.  You can now use this <span class="num intermed">7</span> again later.</p>
+            <ol class="expn-list">
+                <div class="-expn">
+                    <span class="num intermed">7</span>
+                    <span class="op">-</span>
+                    <span class="num">9</span>
+                    <span class="op">+</span>
+                    <span class="num">10</span>
+                </div>
+                <div class="-eq">
+                    <span class="op">=</span>
+                    <span class="num -error">8</span>
+                </div>
+            </ol>
+            <p>Negative numbers aren't allowed.  A hidden <span class="num -error">−2</span> is created here.</p>
+            <ol class="expn-list">
+                <div class="-expn">
+                    <span class="num intermed">7</span>
+                    <span class="op">+</span>
+                    <span class="num">10</span>
+                    <span class="op">-</span>
+                    <span class="num">9</span>
+                </div>
+                <div class="-eq">
+                    <span class="op">=</span>
+                    <span class="num intermed">8</span>
+                </div>
+            </ol>
+            <p>Rearranging can help.</p>
+            <ol class="expn-list">
+                <div class="-expn">
+                    <span class="num intermed">8</span>
+                    <span class="op">÷</span>
+                    <span class="num">3</span>
+                </div>
+                <div class="-eq">
+                    <span class="op">=</span>
+                    <span class="num -error">2⅔</span>
+                </div>
+            </ol>
+            <p>Fractions aren't allowed, either.</p>
+        </div>
+        <p>You earn ⭐ for getting within 10 of the target, ⭐⭐ for getting within 5, and ⭐⭐⭐ for reaching it exactly.  Note that in rare cases, a puzzle may not be exactly solvable.</p>
+        <p>Made by <a href="https://eev.ee/">Eevee</a> (<a href="https://twitter.com/eevee">@eevee</a>).  Hope you enjoy!  <a href="https://github.com/eevee/digitle">Source code</a> on GitHub, but also in your browser; it's only two files.</p>
+    </main>
+
+
+
+
+
+
+    <main hidden id="main-settings">
+        <header>
+            <div class="-before"></div>
+            <h1>options</h1>
+            <div class="-after">
+                <button id="button-close-settings">❌</button>
+            </div>
+        </header>
+        <form id="settings">
+            <h2>Affects all puzzles:</h2>
+            <p>
+                <label for="label-setting-hard-mode">Hard mode<br>(must use all six numbers)</label>
+                <input type="checkbox" name="hard-mode" id="label-setting-hard-mode">
+            </p>
+
+            <h2>Affects random puzzles only:</h2>
+            <p>
+                <label for="label-setting-pool">Big numbers</label>
+                <select name="pool" id="label-setting-pool">
+                    <option value="normal">Normal — 25, 50, 75, 100</option>
+                    <option value="tricky">Tricky — 12, 37, 62, 87</option>
+                    <option value="awkward">Awkward — 17, 43, 71, 89</option>
+                    <option value="chaos">Chaos — anything from 11 to 100</option>
+                </select>
+            </p>
+            <p>
+                <label for="label-setting-selection">Number selection</label>
+                <select name="selection" id="label-setting-selection">
+                    <option value="auto">Automatic</option>
+                    <option value="random">Random</option>
+                    <option value="0">0 big, 6 small</option>
+                    <option value="1">1 big, 5 small</option>
+                    <option value="2">2 big, 4 small</option>
+                    <option value="3">3 big, 3 small</option>
+                    <option value="4">4 big, 2 small</option>
+                </select>
+            </p>
+            <p>
+                <label for="label-setting-base">Base</label>
+                <select name="base" id="label-setting-base">
+                    <option value="8">Octal</option>
+                    <option value="10">Decimal</option>
+                    <option value="12">Duodecimal</option>
+                    <option value="16">Hexadecimal</option>
+                </select>
+            </p>
+        </form>
+    </main>
+    <script type="module">
+        import { UI } from './script.js';
+        new UI(document.querySelector('main'));
+    </script>
+</body>
+</html>
