@@ -236,7 +236,8 @@ function isi_ulang_tabel(masuk=0) {
             if (huruf == perkataanRahsia[j]) {
                 warna = 2;
             }
-            else if (berapa_kuning < maks_kuning && perkataanRahsia.includes(huruf)) {
+            else if (berapa_kuning < maks_kuning && perkataanRahsia.includes(huruf) &&
+                     berapa_kuning < perkataanRahsia.split(huruf).length - 1) {
                 berapa_kuning += 1;
                 warna = 1
             }
