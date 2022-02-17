@@ -49,6 +49,16 @@ td.input > button {
     border: none;
 }
 
+td.hijau {
+    background-color: rgb(50, 255, 30);
+}
+td.kuning {
+    background-color: rgb(220, 220, 30);
+}
+td.gagal {
+    background-color: rgb(160, 160, 160);
+}
+
 #togol {
     position: absolute;
     top: 10px;
@@ -74,7 +84,7 @@ button {
     }
     td.tebakan {
         padding: 0px;
-        overflow: none;
+        overflow: hidden;
         width: 3em;
         height: 3em;
         border: 3px solid;
@@ -98,7 +108,7 @@ button {
 
 <body dir=rtl>
 <center>
-<h1>ڤرکاتا<sup>ء</sup>ن‌دل</h1>
+<h1>ڤرکاتاٴن‌دل</h1>
 <h1 style="display:none">perkataandel wordle dalam aksara jawi | wordle in jawi</h1>
 
 <button id="togol" onclick="togol_kecerahan()">🌗 سياڠ/مالم</button>
@@ -122,18 +132,21 @@ button {
         <td class="input"><button onclick="tekan_butang('چ')">چ</button></td>
         <td class="input"><button onclick="tekan_butang('ح')">ح</button></td>
         <td class="input"><button onclick="tekan_butang('خ')">خ</button></td>
+        <td class="input" onclick="hapus_satu_aksara()"><span style="font-size:0.5em">⌦</span></td>
+    </tr>
+    <tr>
         <td class="input"><button onclick="tekan_butang('د')">د</button></td>
         <td class="input"><button onclick="tekan_butang('ذ')">ذ</button></td>
         <td class="input"><button onclick="tekan_butang('ر')">ر</button></td>
         <td class="input"><button onclick="tekan_butang('ز')">ز</button></td>
-    </tr>
-    <tr>
         <td class="input"><button onclick="tekan_butang('س')">س</button></td>
         <td class="input"><button onclick="tekan_butang('ش')">ش</button></td>
         <td class="input"><button onclick="tekan_butang('ص')">ص</button></td>
         <td class="input"><button onclick="tekan_butang('ض')">ض</button></td>
         <td class="input"><button onclick="tekan_butang('ط')">ط</button></td>
         <td class="input"><button onclick="tekan_butang('ظ')">ظ</button></td>
+    </tr>
+    <tr>
         <td class="input"><button onclick="tekan_butang('ع')">ع</button></td>
         <td class="input"><button onclick="tekan_butang('غ')">غ</button></td>
         <td class="input"><button onclick="tekan_butang('ڠ')">ڠ</button></td>
@@ -141,11 +154,11 @@ button {
         <td class="input"><button onclick="tekan_butang('ڤ')">ڤ</button></td>
         <td class="input"><button onclick="tekan_butang('ق')">ق</button></td>
         <td class="input"><button onclick="tekan_butang('ک')">ک</button></td>
-    </tr>
-    <tr>
         <td class="input"><button onclick="tekan_butang('ݢ')">ݢ</button></td>
         <td class="input"><button onclick="tekan_butang('ل')">ل</button></td>
         <td class="input"><button onclick="tekan_butang('م')">م</button></td>
+    </tr>
+    <tr>
         <td class="input"><button onclick="tekan_butang('ن')">ن</button></td>
         <td class="input"><button onclick="tekan_butang('و')">و</button></td>
         <td class="input"><button onclick="tekan_butang('ۏ')">ۏ</button></td>
@@ -154,29 +167,24 @@ button {
         <td class="input"><button onclick="tekan_butang('ي')">ي</button></td>
         <td class="input"><button onclick="tekan_butang('ى')">ى</button></td>
         <td class="input"><button onclick="tekan_butang('ڽ')">ڽ</button></td>
-        <td class="input" onclick="hapus_satu_aksara()"><span style="font-size:0.5em"><=</span></td>
-        <td class="input" onclick="meneka();isi_ulang_tabel()"><span style="font-size:0.5em">ماسوق</span></td>
+        <td class="input" colspan=2 onclick="isi_ulang_tabel(1)"><span style="font-size:0.5em">ماسوق</span></td>
     </tr>
 </table>
 <p id="uji" style="font-size:2em;display:none;"></p>
 </center>
+<script src="senarai_perkataan.js"></script>
 <script>
 var nombor_perkataan = 0;
 var tebakan_perkataan = ["","","","","",""];
-var RODA = "٢ﻻرزوۏدذاٴءة";
+var RODA = "٢ﻻرزوۏدذأإاٴءة";
+
+var senaraiPerkataan = kata.split("\t");
+var perkataanRahsia = senaraiPerkataan[Math.floor(Math.random() * senaraiPerkataan.length)]
 
 function hapus_satu_aksara() {
     tebakan_perkataan[nombor_perkataan] = tebakan_perkataan[nombor_perkataan].substr(0,tebakan_perkataan[nombor_perkataan].length-1);
     document.getElementById('uji').innerText = tebakan_perkataan;
     isi_ulang_tabel();
-}
-
-function meneka() {
-    if (tebakan_perkataan[nombor_perkataan].length == 5) {
-        nombor_perkataan+=1;
-    } else {
-        alert("Tak cukup huruf!")
-    }
 }
 
 function tekan_butang(kekunci) {
@@ -193,46 +201,85 @@ function tekan_butang(kekunci) {
     document.getElementById('uji').innerText = tebakan_perkataan;
     isi_ulang_tabel();
 }
-function isi_ulang_tabel() {
+function isi_ulang_tabel(masuk=0) {
     var x = document.getElementById("tebakan");
     output = "";
+
+    if (masuk && !senaraiPerkataan.includes(tebakan_perkataan[nombor_perkataan])) {
+        alert("perkataan bukan dalam senarai");
+        return 0;
+    } else if (masuk) {
+        if (tebakan_perkataan[nombor_perkataan].length == 5) {
+            nombor_perkataan+=1;
+        } else {
+            alert("Tak cukup huruf!")
+        }
+    }
     for (i=0; i<6; i++) {
         output += "<tr>";
-        for (j=0; j<5; j++) {
 
-            /* Cek harus tambah ZWNJ atau ZWJ */
-            if (j == 0 && tebakan_perkataan[i].length == 1) {
-                output += `<td id="${i}_${j}" class="tebakan">${tebakan_perkataan[i][j]}</td>`;
+        berapa_kuning = 0;
+        for (j=0; j<5; j++) {
+            if (tebakan_perkataan[i][j] == perkataanRahsia[j]) {
+                berapa_kuning += 1;
             }
-            else if (j == 0 && tebakan_perkataan[i].length > 1) {
-                output += `<td id="${i}_${j}" class="tebakan">${tebakan_perkataan[i][j]}\u200d</td>`;
+        }
+        maks_kuning = 0
+        for (var h of new Set(tebakan_perkataan[i])) {
+            maks_kuning += perkataanRahsia.split(h).length - 1;
+        }
+
+        for (j=0; j<5; j++) {
+            huruf = tebakan_perkataan[i][j];
+
+            warna = 0
+            if (huruf == perkataanRahsia[j]) {
+                warna = 2;
             }
-            else if (j == tebakan_perkataan[i].length-1) {
-                if (RODA.includes(tebakan_perkataan[i][j-1])) {
-                    output += `<td id="${i}_${j}" class="tebakan">\u200e${tebakan_perkataan[i][j]}‍\u200e</td>`;
-                } else {
-                    output += `<td id="${i}_${j}" class="tebakan">\u200d${tebakan_perkataan[i][j]}‍\u200e</td>`;
+            else if (berapa_kuning < maks_kuning && perkataanRahsia.includes(huruf)) {
+                berapa_kuning += 1;
+                warna = 1
+            }
+
+            if (huruf == 'ﻻ') {huruf = 'لا'}
+            if (huruf == undefined) {output += `<td id="${i}_${j}" class="tebakan"> </td>`}
+            else {
+                if ('ٴء٢'.includes(tebakan_perkataan[i][j+1])) {
+                    huruf = huruf + '\u200c';
                 }
-            }
-            else if (tebakan_perkataan[i].length > j) {
-                if ('-ٴء٢'.includes(tebakan_perkataan[i][j+1])) {
+
+                /* Cek harus tambah ZWNJ atau ZWJ */
+                if (j == 0 && tebakan_perkataan[i].length == 1) {
+                    huruf = huruf + '\u200c';
+                }
+                else if (j == 0 && tebakan_perkataan[i].length > 1) {
+                    huruf = huruf + '\u200d';
+                }
+                else if (j == tebakan_perkataan[i].length-1) {
                     if (RODA.includes(tebakan_perkataan[i][j-1])) {
-                        output += `<td id="${i}_${j}" class="tebakan">}‍\u200e${tebakan_perkataan[i][j]}‍\u200e</td>`;
+                        huruf = '\u200c' + huruf + '\u200c';
                     } else {
-                        output += `<td id="${i}_${j}" class="tebakan">\u200d${tebakan_perkataan[i][j]}‍\u200e</td>`;
+                        huruf = '\u200d' + huruf + '\u200c';
+                    }
+                }
+                else if (tebakan_perkataan[i].length > j) {
+                    if (RODA.includes(tebakan_perkataan[i][j-1])) {
+                        huruf = '\u200c' + huruf;
+                    } else {
+                        huruf = '\u200d' + huruf;
+                    }
+                }
+                if (masuk || i < nombor_perkataan) {
+                    if (warna == 0) {
+                        output += `<td id="${i}_${j}" class="tebakan gagal">${huruf}‍</td>`;
+                    } else if (warna == 1) {
+                        output += `<td id="${i}_${j}" class="tebakan kuning">${huruf}‍</td>`;
+                    } else if (warna == 2) {
+                        output += `<td id="${i}_${j}" class="tebakan hijau">${huruf}‍</td>`;
                     }
                 } else {
-                    if (RODA.includes(tebakan_perkataan[i][j-1])) {
-                        output += `<td id="${i}_${j}" class="tebakan">${tebakan_perkataan[i][j]}‍\u200d</td>`;
-                    } else {
-                        output += `<td id="${i}_${j}" class="tebakan">\u200d${tebakan_perkataan[i][j]}‍\u200d</td>`;
-                    }
+                    output += `<td id="${i}_${j}" class="tebakan">${huruf}‍</td>`;
                 }
-            }
-            else if (tebakan_perkataan[i][j] != undefined) {
-                output += `<td id="${i}_${j}" class="tebakan">${tebakan_perkataan[i][j]}</td>`
-            } else {
-                output += `<td id="${i}_${j}" class="tebakan"> </td>`
             }
         }
         output += "</tr>";

@@ -11,7 +11,7 @@
             font-family: "DejawiVu Sans Mono", "Noto Naskh Arabic", sans-serif;
             background: hsl(215, 50%, 95%);
         }
-        /**/* {
+        /*** {
             font-family: "DejawiVu Sans Mono";
         }
         /**/
@@ -32,7 +32,7 @@
         }
         button {
             --button-hue: 215;
-            --button-lightness: 90%;
+            --button-lightness: 98%;
             padding: 0.25em 0.5em;
             line-height: 1.5;
             border-radius: 0.125em;
@@ -40,7 +40,7 @@
             text-align: center;
             background: hsl(var(--button-hue), 20%, var(--button-lightness));
             background-image: linear-gradient(to bottom, transparent, hsl(
-                var(--button-hue), 20%, calc(var(--button-lightness) * 0.9)));
+                var(--button-hue), 20%, calc(var(--button-lightness) * 0.95)));
             box-shadow: inset 0 0 3px #fff4;
             cursor: pointer;
         }
@@ -94,47 +94,6 @@
             padding: 0.25em;
         }
 
-        #board {
-            display: grid;
-            grid:
-                "left   target  right"
-                "given  given   given"
-                / 1fr min-content 1fr
-            ;
-            align-items: center;
-            justify-content: center;
-            gap: 1em;
-            padding: 1em 0;
-            border: 1px solid #ccd;
-            border-width: 1px 0;
-        }
-        #board > .-left {
-            grid-area: left;
-        }
-        #board .target {
-            grid-area: target;
-        }
-        #board > .-right {
-            grid-area: right;
-        }
-        #board > .-left,
-        #board > .-right {
-            text-align: center;
-            color: #666;
-        }
-        #board #given {
-            grid-area: given;
-            display: flex;
-            justify-content: center;
-            gap: 1em;
-        }
-
-        #inputs-wrapper {
-            flex: 1;
-            overflow: auto;
-            padding: 0.25em;
-            padding-right: 1em;  /* leave space for stars */
-        }
 
 
 
@@ -151,13 +110,20 @@
             gap: 0.1em;
         }
         #keyboard button {
-            --button-lightness: 75%;
+            --button-lightness: 85%;
             line-height: 1;
         }
-        #keyboard button[data-type=erase] {
-            --button-hue: 275;
-            background-color: rgb(255,160,200);
+
+        #keyboard button[data-type=hapus] {
+            background: rgb(230, 170, 170);
         }
+        #keyboard button[data-type=hapus]:hover {
+            background: rgb(240, 180, 180);
+        }
+        #keyboard button[data-type=hapus]:active {
+            background: rgb(200, 140, 140);
+        }
+
         #keyboard button[data-type=masuk] {
             --button-hue: 155;
             grid-column: 9 / 11;
@@ -296,7 +262,7 @@
     <main id="main-game">
         <header>
             <div class="-before">
-                <button id="button-mode" title="Seharian">سهارين</button>
+                <button id="button-mode" title="Seharian" disabled>سهارين</button>
                 <button id="button-mode" title="Latihan">لاتيهن</button>
             </div>
             <h1>کاتادل</h1>
@@ -317,58 +283,53 @@
             <ul id="given"></ul>
         </div>
         -->
-        <div id="inputs-wrapper">
-            <ol id="inputs" class="expn-list"></ol>
+        <div id="pelindung-input">
         </div>
-        <div id="error"></div>
-        <div id="win">
-            <p id="win-message">Tahniah!</p>
-            <button id="button-copy-results">Salin keputusan</button>
-        </div>
+
         <div id="keyboard">
-            <button data-op="ا" data-type="operator">ا</button>
-            <button data-op="ب" data-type="operator">ب</button>
-            <button data-op="ت" data-type="operator">ت</button>
-            <button data-op="ة" data-type="operator">ة</button>
-            <button data-op="ث" data-type="operator">ث</button>
-            <button data-op="ج" data-type="operator">ج</button>
-            <button data-op="چ" data-type="operator">چ</button>
-            <button data-op="ح" data-type="operator">ح</button>
-            <button data-op="خ" data-type="operator">خ</button>
-            <button data-type="erase">⌦</button> <!-- U+2326 ERASE TO THE RIGHT -->
-            <button data-op="د" data-type="operator">د</button>
-            <button data-op="ذ" data-type="operator">ذ</button>
-            <button data-op="ر" data-type="operator">ر</button>
-            <button data-op="ز" data-type="operator">ز</button>
-            <button data-op="س" data-type="operator">س</button>
-            <button data-op="ش" data-type="operator">ش</button>
-            <button data-op="ص" data-type="operator">ص</button>
-            <button data-op="ض" data-type="operator">ض</button>
-            <button data-op="ط" data-type="operator">ط</button>
-            <button data-op="ظ" data-type="operator">ظ</button>
-            <button data-op="ع" data-type="operator">ع</button>
-            <button data-op="غ" data-type="operator">غ</button>
-            <button data-op="ڠ" data-type="operator">ڠ</button>
-            <button data-op="ف" data-type="operator">ف</button>
-            <button data-op="ڤ" data-type="operator">ڤ</button>
-            <button data-op="ق" data-type="operator">ق</button>
-            <button data-op="ک" data-type="operator">ک</button>
-            <button data-op="ݢ" data-type="operator">ݢ</button>
-            <button data-op="ل" data-type="operator">ل</button>
-            <button data-op="م" data-type="operator">م</button>
-            <button data-op="ن" data-type="operator">ن</button>
-            <button data-op="و" data-type="operator">و</button>
-            <button data-op="ۏ" data-type="operator">ۏ</button>
-            <button data-op="ه" data-type="operator">ه</button>
-            <button data-op="ء" data-type="operator">ء</button>
-            <button data-op="ي" data-type="operator">ي</button>
-            <button data-op="ى" data-type="operator">ى</button>
-            <button data-op="ڽ" data-type="operator">ڽ</button>
+            <button data-op="ا" data-type="huruf">ا</button>
+            <button data-op="ب" data-type="huruf">ب</button>
+            <button data-op="ت" data-type="huruf">ت</button>
+            <button data-op="ة" data-type="huruf">ة</button>
+            <button data-op="ث" data-type="huruf">ث</button>
+            <button data-op="ج" data-type="huruf">ج</button>
+            <button data-op="چ" data-type="huruf">چ</button>
+            <button data-op="ح" data-type="huruf">ح</button>
+            <button data-op="خ" data-type="huruf">خ</button>
+            <button data-type="hapus">⌦</button> <!-- U+2326 ERASE TO THE RIGHT -->
+            <button data-op="د" data-type="huruf">د</button>
+            <button data-op="ذ" data-type="huruf">ذ</button>
+            <button data-op="ر" data-type="huruf">ر</button>
+            <button data-op="ز" data-type="huruf">ز</button>
+            <button data-op="س" data-type="huruf">س</button>
+            <button data-op="ش" data-type="huruf">ش</button>
+            <button data-op="ص" data-type="huruf">ص</button>
+            <button data-op="ض" data-type="huruf">ض</button>
+            <button data-op="ط" data-type="huruf">ط</button>
+            <button data-op="ظ" data-type="huruf">ظ</button>
+            <button data-op="ع" data-type="huruf">ع</button>
+            <button data-op="غ" data-type="huruf">غ</button>
+            <button data-op="ڠ" data-type="huruf">ڠ</button>
+            <button data-op="ف" data-type="huruf">ف</button>
+            <button data-op="ڤ" data-type="huruf">ڤ</button>
+            <button data-op="ق" data-type="huruf">ق</button>
+            <button data-op="ک" data-type="huruf">ک</button>
+            <button data-op="ݢ" data-type="huruf">ݢ</button>
+            <button data-op="ل" data-type="huruf">ل</button>
+            <button data-op="م" data-type="huruf">م</button>
+            <button data-op="ن" data-type="huruf">ن</button>
+            <button data-op="و" data-type="huruf">و</button>
+            <button data-op="ۏ" data-type="huruf">ۏ</button>
+            <button data-op="ه" data-type="huruf">ه</button>
+            <button data-op="ء" data-type="huruf">ء</button>
+            <button data-op="ي" data-type="huruf">ي</button>
+            <button data-op="ى" data-type="huruf">ى</button>
+            <button data-op="ڽ" data-type="huruf">ڽ</button>
             <button data-type="masuk">ماسوق</button>
 
         </div>
         <div id="puzzle-desc">
-            <p>Latihan seharian pada __</p>
+            <p>هاري ___</p>
             <button id="button-reroll">Latihan baru</button>
             <button id="button-copy-link">Salin pautan</button>
         </div>
@@ -386,66 +347,7 @@
                 <button id="button-close-about">❌</button>
             </div>
         </header>
-        <p><strong>digitle</strong> is a number puzzle game, best known from the UK game show <a href="https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_round">Countdown</a>.</p>
-        <p>Try to reach the target number by combining the six given numbers and the four basic arithmetic operations.  Click on available numbers to insert them into an expression, or type them on your keyboard.</p>
-        <div class="about-examples">
-            <ol class="expn-list">
-                <div class="-expn">
-                    <span class="num">1</span>
-                    <span class="op">+</span>
-                    <span class="num">2</span>
-                    <span class="op">×</span>
-                    <span class="num">3</span>
-                </div>
-                <div class="-eq">
-                    <span class="op">=</span>
-                    <span class="num intermed">7</span>
-                </div>
-            </ol>
-            <p>Order of operations matters.  You can now use this <span class="num intermed">7</span> again later.</p>
-            <ol class="expn-list">
-                <div class="-expn">
-                    <span class="num intermed">7</span>
-                    <span class="op">-</span>
-                    <span class="num">9</span>
-                    <span class="op">+</span>
-                    <span class="num">10</span>
-                </div>
-                <div class="-eq">
-                    <span class="op">=</span>
-                    <span class="num -error">8</span>
-                </div>
-            </ol>
-            <p>Negative numbers aren't allowed.  A hidden <span class="num -error">−2</span> is created here.</p>
-            <ol class="expn-list">
-                <div class="-expn">
-                    <span class="num intermed">7</span>
-                    <span class="op">+</span>
-                    <span class="num">10</span>
-                    <span class="op">-</span>
-                    <span class="num">9</span>
-                </div>
-                <div class="-eq">
-                    <span class="op">=</span>
-                    <span class="num intermed">8</span>
-                </div>
-            </ol>
-            <p>Rearranging can help.</p>
-            <ol class="expn-list">
-                <div class="-expn">
-                    <span class="num intermed">8</span>
-                    <span class="op">÷</span>
-                    <span class="num">3</span>
-                </div>
-                <div class="-eq">
-                    <span class="op">=</span>
-                    <span class="num -error">2⅔</span>
-                </div>
-            </ol>
-            <p>Fractions aren't allowed, either.</p>
-        </div>
-        <p>You earn ⭐ for getting within 10 of the target, ⭐⭐ for getting within 5, and ⭐⭐⭐ for reaching it exactly.  Note that in rare cases, a puzzle may not be exactly solvable.</p>
-        <p>Made by <a href="https://eev.ee/">Eevee</a> (<a href="https://twitter.com/eevee">@eevee</a>).  Hope you enjoy!  <a href="https://github.com/eevee/digitle">Source code</a> on GitHub, but also in your browser; it's only two files.</p>
+        blabla
     </main>
 
 
