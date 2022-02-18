@@ -7,6 +7,7 @@
 body {
     background-color: rgb(230, 230, 230);
     color:rgb(50, 50, 50);
+    font-family: Dejawivu Sans Mono;
 }
 /**/
 #papanKekunci {
@@ -49,13 +50,13 @@ td.input > button {
     border: none;
 }
 
-td.hijau {
-    background-color: rgb(50, 255, 30);
+.hijau {
+    background-color: rgb(50, 210, 30);
 }
-td.kuning {
-    background-color: rgb(220, 220, 30);
+.kuning {
+    background-color: rgb(190, 190, 30);
 }
-td.gagal {
+.gagal {
     background-color: rgb(160, 160, 160);
 }
 
@@ -68,6 +69,7 @@ td.gagal {
 
 button {
     font-family: Noto Naskh Arabic;
+    background-color: transparent;
 }
 
 @media only screen and (max-device-width: 768px) {
@@ -107,11 +109,14 @@ button {
 </head>
 
 <body dir=rtl>
-<center>
-<h1>ڤرکاتاٴن‌دل</h1>
-<h1 style="display:none">perkataandel wordle dalam aksara jawi | wordle in jawi</h1>
 
-<button id="togol" onclick="togol_kecerahan()">🌗 سياڠ/مالم</button>
+<main id="permainan"><center>
+<header>
+    <h1>کاتادل</h1>
+    <h1 style="display:none">perkataandel wordle dalam aksara jawi | wordle in jawi</h1>
+
+    <button id="togol" onclick="togol_kecerahan()">🌗 سياڠ/مالم</button>
+</header>
 
 <br/>
 
@@ -123,56 +128,65 @@ button {
 
 <table id="papanKekunci">
     <tr>
-        <td class="input"><button onclick="tekan_butang('ا')">ا</button></td>
-        <td class="input"><button onclick="tekan_butang('ب')">ب</button></td>
-        <td class="input"><button onclick="tekan_butang('ت')">ت</button></td>
-        <td class="input"><button onclick="tekan_butang('ة')">ة</button></td>
-        <td class="input"><button onclick="tekan_butang('ث')">ث</button></td>
-        <td class="input"><button onclick="tekan_butang('ج')">ج</button></td>
-        <td class="input"><button onclick="tekan_butang('چ')">چ</button></td>
-        <td class="input"><button onclick="tekan_butang('ح')">ح</button></td>
-        <td class="input"><button onclick="tekan_butang('خ')">خ</button></td>
-        <td class="input" onclick="hapus_satu_aksara()"><span style="font-size:0.5em">⌦</span></td>
+        <td class="input"><button id="ا" onclick="tekan_butang('ا')">ا</button></td>
+        <td class="input"><button id="ب" onclick="tekan_butang('ب')">ب</button></td>
+        <td class="input"><button id="ت" onclick="tekan_butang('ت')">ت</button></td>
+        <td class="input"><button id="ة" onclick="tekan_butang('ة')">ة</button></td>
+        <td class="input"><button id="ث" onclick="tekan_butang('ث')">ث</button></td>
+        <td class="input"><button id="ج" onclick="tekan_butang('ج')">ج</button></td>
+        <td class="input"><button id="چ" onclick="tekan_butang('چ')">چ</button></td>
+        <td class="input"><button id="ح" onclick="tekan_butang('ح')">ح</button></td>
+        <td class="input"><button id="خ" onclick="tekan_butang('خ')">خ</button></td>
+        <td class="input" onclick="hapus_satu_aksara()">⌦</td>
     </tr>
     <tr>
-        <td class="input"><button onclick="tekan_butang('د')">د</button></td>
-        <td class="input"><button onclick="tekan_butang('ذ')">ذ</button></td>
-        <td class="input"><button onclick="tekan_butang('ر')">ر</button></td>
-        <td class="input"><button onclick="tekan_butang('ز')">ز</button></td>
-        <td class="input"><button onclick="tekan_butang('س')">س</button></td>
-        <td class="input"><button onclick="tekan_butang('ش')">ش</button></td>
-        <td class="input"><button onclick="tekan_butang('ص')">ص</button></td>
-        <td class="input"><button onclick="tekan_butang('ض')">ض</button></td>
-        <td class="input"><button onclick="tekan_butang('ط')">ط</button></td>
-        <td class="input"><button onclick="tekan_butang('ظ')">ظ</button></td>
+        <td class="input"><button id="د" onclick="tekan_butang('د')">د</button></td>
+        <td class="input"><button id="ذ" onclick="tekan_butang('ذ')">ذ</button></td>
+        <td class="input"><button id="ر" onclick="tekan_butang('ر')">ر</button></td>
+        <td class="input"><button id="ز" onclick="tekan_butang('ز')">ز</button></td>
+        <td class="input"><button id="س" onclick="tekan_butang('س')">س</button></td>
+        <td class="input"><button id="ش" onclick="tekan_butang('ش')">ش</button></td>
+        <td class="input"><button id="ص" onclick="tekan_butang('ص')">ص</button></td>
+        <td class="input"><button id="ض" onclick="tekan_butang('ض')">ض</button></td>
+        <td class="input"><button id="ط" onclick="tekan_butang('ط')">ط</button></td>
+        <td class="input"><button id="ظ" onclick="tekan_butang('ظ')">ظ</button></td>
     </tr>
     <tr>
-        <td class="input"><button onclick="tekan_butang('ع')">ع</button></td>
-        <td class="input"><button onclick="tekan_butang('غ')">غ</button></td>
-        <td class="input"><button onclick="tekan_butang('ڠ')">ڠ</button></td>
-        <td class="input"><button onclick="tekan_butang('ف')">ف</button></td>
-        <td class="input"><button onclick="tekan_butang('ڤ')">ڤ</button></td>
-        <td class="input"><button onclick="tekan_butang('ق')">ق</button></td>
-        <td class="input"><button onclick="tekan_butang('ک')">ک</button></td>
-        <td class="input"><button onclick="tekan_butang('ݢ')">ݢ</button></td>
-        <td class="input"><button onclick="tekan_butang('ل')">ل</button></td>
-        <td class="input"><button onclick="tekan_butang('م')">م</button></td>
+        <td class="input"><button id="ع" onclick="tekan_butang('ع')">ع</button></td>
+        <td class="input"><button id="غ" onclick="tekan_butang('غ')">غ</button></td>
+        <td class="input"><button id="ڠ" onclick="tekan_butang('ڠ')">ڠ</button></td>
+        <td class="input"><button id="ف" onclick="tekan_butang('ف')">ف</button></td>
+        <td class="input"><button id="ڤ" onclick="tekan_butang('ڤ')">ڤ</button></td>
+        <td class="input"><button id="ق" onclick="tekan_butang('ق')">ق</button></td>
+        <td class="input"><button id="ک" onclick="tekan_butang('ک')">ک</button></td>
+        <td class="input"><button id="ݢ" onclick="tekan_butang('ݢ')">ݢ</button></td>
+        <td class="input"><button id="ل" onclick="tekan_butang('ل')">ل</button></td>
+        <td class="input"><button id="م" onclick="tekan_butang('م')">م</button></td>
     </tr>
     <tr>
-        <td class="input"><button onclick="tekan_butang('ن')">ن</button></td>
-        <td class="input"><button onclick="tekan_butang('و')">و</button></td>
-        <td class="input"><button onclick="tekan_butang('ۏ')">ۏ</button></td>
-        <td class="input"><button onclick="tekan_butang('ه')">ه</button></td>
-        <td class="input"><button onclick="tekan_butang('ٴ')">ء</button></td>
-        <td class="input"><button onclick="tekan_butang('ي')">ي</button></td>
-        <td class="input"><button onclick="tekan_butang('ى')">ى</button></td>
-        <td class="input"><button onclick="tekan_butang('ڽ')">ڽ</button></td>
-        <td class="input" colspan=2 onclick="isi_ulang_tabel(1)"><span style="font-size:0.5em">ماسوق</span></td>
+        <td class="input"><button id="ن" onclick="tekan_butang('ن')">ن</button></td>
+        <td class="input"><button id="و" onclick="tekan_butang('و')">و</button></td>
+        <td class="input"><button id="ۏ" onclick="tekan_butang('ۏ')">ۏ</button></td>
+        <td class="input"><button id="ه" onclick="tekan_butang('ه')">ه</button></td>
+        <td class="input"><button id="ء" onclick="tekan_butang('ٴ')">ء</button></td>
+        <td class="input"><button id="ي" onclick="tekan_butang('ي')">ي</button></td>
+        <td class="input"><button id="ى" onclick="tekan_butang('ى')">ى</button></td>
+        <td class="input"><button id="ڽ" onclick="tekan_butang('ڽ')">ڽ</button></td>
+        <td class="input" colspan=2 onclick="isi_ulang_tabel(1)">ماسوق</td>
     </tr>
 </table>
-<p id="uji" style="font-size:2em;display:none;"></p>
+<!--<p id="uji" style="font-size:2em;display:none;"></p>-->
 </center>
+</main>
+
+
+
+
+
+
 <script src="senarai_perkataan.js"></script>
+<!-- gerbangnya, ditabang,  -->
+<!--c چبادق⹁ ا  -->
 <script>
 var nombor_perkataan = 0;
 var tebakan_perkataan = ["","","","","",""];
@@ -183,7 +197,7 @@ var perkataanRahsia = senaraiPerkataan[Math.floor(Math.random() * senaraiPerkata
 
 function hapus_satu_aksara() {
     tebakan_perkataan[nombor_perkataan] = tebakan_perkataan[nombor_perkataan].substr(0,tebakan_perkataan[nombor_perkataan].length-1);
-    document.getElementById('uji').innerText = tebakan_perkataan;
+    //document.getElementById('uji').innerText = tebakan_perkataan;
     isi_ulang_tabel();
 }
 
@@ -198,14 +212,23 @@ function tekan_butang(kekunci) {
     } else {
         alert('Terlalu banyak huruf!');
     }
-    document.getElementById('uji').innerText = tebakan_perkataan;
+    //document.getElementById('uji').innerText = tebakan_perkataan;
     isi_ulang_tabel();
 }
 function isi_ulang_tabel(masuk=0) {
     var x = document.getElementById("tebakan");
     output = "";
 
+    var kekunciGagal = [];
+    var kekunciKuning = [];
+    var kekunciHijau = [];
+
     if (masuk && !senaraiPerkataan.includes(tebakan_perkataan[nombor_perkataan])) {
+        if (senaraiPerkataan.includes(tebakan_perkataan[nombor_perkataan].replace('ا', 'أ'))) {
+            tebakan_perkataan[nombor_perkataan] = tebakan_perkataan[nombor_perkataan].replace('ا', 'أ');
+        } else if (senaraiPerkataan.includes(tebakan_perkataan[nombor_perkataan].replace('ا', 'إ'))) {
+            tebakan_perkataan[nombor_perkataan] = tebakan_perkataan[nombor_perkataan].replace('ا', 'إ');
+        }
         alert("perkataan bukan dalam senarai");
         return 0;
     } else if (masuk) {
@@ -215,36 +238,40 @@ function isi_ulang_tabel(masuk=0) {
             alert("Tak cukup huruf!")
         }
     }
-    for (i=0; i<6; i++) {
+    for (i=0; i<tebakan_perkataan.length; i++) {
         output += "<tr>";
 
-        berapa_kuning = 0;
+        kira_warna = new Map();
+        for (var h of new Set(tebakan_perkataan[i])) {
+            kira_warna.set(h, 0)
+        }
         for (j=0; j<5; j++) {
-            if (tebakan_perkataan[i][j] == perkataanRahsia[j]) {
-                berapa_kuning += 1;
+            huruf = tebakan_perkataan[i][j];
+            if (huruf == perkataanRahsia[j]) {
+                kira_warna.set(huruf, kira_warna.get(huruf) + 1)
             }
         }
-        maks_kuning = 0
-        for (var h of new Set(tebakan_perkataan[i])) {
-            maks_kuning += perkataanRahsia.split(h).length - 1;
-        }
+
+
 
         for (j=0; j<5; j++) {
             huruf = tebakan_perkataan[i][j];
+            huruf_asli = huruf;
+
+            if (huruf == undefined) {output += `<td id="${i}_${j}" class="tebakan"> </td>`}
 
             warna = 0
             if (huruf == perkataanRahsia[j]) {
                 warna = 2;
             }
-            else if (berapa_kuning < maks_kuning && perkataanRahsia.includes(huruf) &&
-                     berapa_kuning < perkataanRahsia.split(huruf).length - 1) {
-                berapa_kuning += 1;
-                warna = 1
+            else if (kira_warna.get(huruf) < perkataanRahsia.split(huruf).length - 1) {
+                warna = 1;
+                kira_warna.set(huruf, kira_warna.get(huruf) + 1);
             }
 
             if (huruf == 'ﻻ') {huruf = 'لا'}
-            if (huruf == undefined) {output += `<td id="${i}_${j}" class="tebakan"> </td>`}
-            else {
+
+            if (huruf != undefined) {
                 if ('ٴء٢'.includes(tebakan_perkataan[i][j+1])) {
                     huruf = huruf + '\u200c';
                 }
@@ -271,12 +298,23 @@ function isi_ulang_tabel(masuk=0) {
                     }
                 }
                 if (masuk || i < nombor_perkataan) {
+                    [kekunciGagal, kekunciKuning, kekunciHijau][warna].push(huruf_asli)
                     if (warna == 0) {
                         output += `<td id="${i}_${j}" class="tebakan gagal">${huruf}‍</td>`;
                     } else if (warna == 1) {
                         output += `<td id="${i}_${j}" class="tebakan kuning">${huruf}‍</td>`;
                     } else if (warna == 2) {
                         output += `<td id="${i}_${j}" class="tebakan hijau">${huruf}‍</td>`;
+                    }
+
+                    for(q=0; q<kekunciGagal.length; q++) {
+                        tetapKekunciWarna(kekunciGagal[q], 'gagal');
+                    }
+                    for(q=0; q<kekunciKuning.length; q++) {
+                        tetapKekunciWarna(kekunciKuning[q], 'kuning');
+                    }
+                    for(q=0; q<kekunciHijau.length; q++) {
+                        tetapKekunciWarna(kekunciHijau[q], 'hijau');
                     }
                 } else {
                     output += `<td id="${i}_${j}" class="tebakan">${huruf}‍</td>`;
@@ -286,19 +324,55 @@ function isi_ulang_tabel(masuk=0) {
         output += "</tr>";
     }
     x.innerHTML = output;
+
+}
+function tetapKekunciWarna(id, warna) {
+    document.getElementById(id).setAttribute("class", warna);
+    if (id == 'ٴ') {document.getElementById("ء").setAttribute("class", warna);}
+    if (id == 'لا') {
+        document.getElementById("ل").setAttribute("class", warna);
+        document.getElementById("ا").setAttribute("class", warna);
+    }
 }
 
+function css(selector, property, value) {
+    //https://stackoverflow.com/questions/566203/changing-css-values-with-javascript
+    for (var i=0; i<document.styleSheets.length;i++) {//Loop through all styles
+        //Try add rule
+        try { document.styleSheets[i].insertRule(selector+ ' {'+property+':'+value+'}', document.styleSheets[i].cssRules.length);
+        } catch(err) {try { document.styleSheets[i].addRule(selector, property+':'+value);} catch(err) {}}//IE
+    }
+}
 function togol_kecerahan() {
     var body = document.getElementsByTagName('body')[0];
     if (body.style.color == "" || body.style.color == "rgb(50, 50, 50)") {
         body.style.color = "rgb(230, 230, 230)";
         body.style.backgroundColor = "rgb(50, 50, 50)";
+        css('button', 'color', 'rgb(230, 230, 230)');
     } else {
         body.style.color = "rgb(50, 50, 50)";
         body.style.backgroundColor = "rgb(230, 230, 230)";
+        css('button', 'color', 'rgb(50, 50, 50)');
     }
 }
 
 isi_ulang_tabel()
+
+this.root.querySelector('#papanKekunci').addEventListener('click', ev => {
+    let butang = ev.target;
+    if (butang.tagName !== 'BUTTON')
+        return;
+
+    let type = butang.getAttribute('data-type');
+    if (type === 'huruf') {
+        tekan_butang(button.getAttribute('id'));
+    }
+    else if (type === 'hapus') {
+        hapus_satu_aksara()
+    }
+    else if (type === 'masuk') {
+        isi_ulang_tabel(1)
+    }
+});
 </script>
 </body>
