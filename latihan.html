@@ -237,13 +237,13 @@ function isi_ulang_tabel(masuk=0) {
         } else if (senaraiPerkataan.includes(tebakan_perkataan[nombor_perkataan].replace('ا', 'إ'))) {
             tebakan_perkataan[nombor_perkataan] = tebakan_perkataan[nombor_perkataan].replace('ا', 'إ');
         }
-        alert("perkataan bukan dalam senarai");
+        alert("Perkataan tidak dalam senarai");
         return 0;
     } else if (masuk) {
         if (tebakan_perkataan[nombor_perkataan].length == 5) {
             nombor_perkataan+=1;
         } else {
-            alert("Tak cukup huruf!")
+            alert("Tidak cukup hurufnya!")
         }
     }
     for (i=0; i<tebakan_perkataan.length; i++) {
@@ -334,9 +334,11 @@ function isi_ulang_tabel(masuk=0) {
     x.innerHTML = output;
 
     // got a problem here
+    /*
     if (tebakan_perkataan[nombor_perkataan] == perkataanRahsia) {
         document.querySelector('#papanKekunci').removeEventListener('click', arahkunci)
     }
+    */
 }
 function tetapKekunciWarna(id, warna) {
     //if (id == 'ٴ') {document.getElementById("ء").setAttribute("class", warna);}
