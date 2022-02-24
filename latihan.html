@@ -349,11 +349,14 @@ function isi_ulang_tabel(masuk=0) {
     x.innerHTML = output;
 
     // got a problem here
-    /*
-    if (tebakan_perkataan[nombor_perkataan] == perkataanRahsia) {
-        document.querySelector('#papanKekunci').removeEventListener('click', arahkunci)
+
+    if (masuk && tebakan_perkataan[nombor_perkataan-1] == perkataanRahsia) {
+        //document.querySelector('#papanKekunci').removeEventListener('click', arahkunci)
+        alert('تهنيئه!')
+    } else if (masuk && tebakan_perkataan[tebakan_perkataan.length-1] != "") {
+        alert(`جاواڤن = ${perkataanRahsia}`)
     }
-    */
+
 }
 function tetapKekunciWarna(id, warna) {
     //if (id == 'ٴ') {document.getElementById("ء").setAttribute("class", warna);}
